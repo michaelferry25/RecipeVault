@@ -25,6 +25,13 @@ const HomePage = () => {
         />
       </div>
 
+      {/*Create Recipe*/}
+      <div className="container my-5">
+      <Link to="/create-recipe" className="btn btn-primary">
+        Add a Recipe
+      </Link>
+    </div>
+
       {/* Featured Recipes */}
       <section className="featured-recipes container">
         <h2>Featured Recipes</h2>

@@ -20,6 +20,9 @@ const recipeSchema = new mongoose.Schema({
     instructions: { type: String, required: true },
     prepTime: { type: Number, required: true },
     cuisine: { type: String },
+    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"] },
+    servings: { type: Number },
+    image: { type: String },
     createdAt: { type: Date, default: Date.now },
     favorites: { type: Boolean, default: false }, 
 });
