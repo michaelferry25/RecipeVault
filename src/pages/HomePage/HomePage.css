@@ -90,4 +90,27 @@
   .recipe-card .btn-primary:hover {
     background-color: #0056b3;
   }
+
+  .search-bar-container {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .search-bar {
+    width: 80%;
+    max-width: 500px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .search-bar:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-color: #007bff;
+  }
+  
   

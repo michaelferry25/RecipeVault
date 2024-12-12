@@ -4,34 +4,48 @@ import axios from "axios";
 import "./HomePage.css";
 
 const HomePage = () => {
+  const [featuredRecipes, setFeaturedRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // Search input state
+  const [filteredRecipes, setFilteredRecipes] = useState([]); // Filtered recipes for search
 
-    const [featuredRecipes, setFeaturedRecipes] = useState([]);
-    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  useEffect(() => {
+    // Fetch Featured Recipes
+    const fetchFeaturedRecipes = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/recipes");
+        setFeaturedRecipes(response.data.slice(0, 4)); // Top 4 featured recipes
+        setFilteredRecipes(response.data); // Initially show all recipes
+      } catch (error) {
+        console.error("Error fetching featured recipes:", error);
+      }
+    };
 
-    useEffect(() => {
-        // Fetch Featured Recipes
-        const fetchFeaturedRecipes = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/recipes");
-            setFeaturedRecipes(response.data.slice(0, 4)); //top 4 featured recipes
-        } catch (error) {
-            console.error("Error fetching featured recipes:", error);
-        }
-        };
+    // Fetch Favorite Recipes
+    const fetchFavoriteRecipes = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/favorites"); // Endpoint for favorite recipes
+        setFavoriteRecipes(response.data);
+      } catch (error) {
+        console.error("Error fetching favorite recipes:", error);
+      }
+    };
 
-        // Fetch Favorite Recipes
-        const fetchFavoriteRecipes = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/favorites"); // Endpoint for favorite recipes
-            setFavoriteRecipes(response.data);
-        } catch (error) {
-            console.error("Error fetching favorite recipes:", error);
-        }
-        };
+    fetchFeaturedRecipes();
+    fetchFavoriteRecipes();
+  }, []);
 
-        fetchFeaturedRecipes();
-        fetchFavoriteRecipes();
-    }, []);
+  // Handle search input change
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+
+    // Filter recipes based on the search term
+    const filtered = featuredRecipes.filter((recipe) =>
+      recipe.title.toLowerCase().includes(searchValue)
+    );
+    setFilteredRecipes(filtered);
+  };
 
   return (
     <div className="homepage">
@@ -47,73 +61,70 @@ const HomePage = () => {
       </header>
 
       {/* Search Bar */}
-      <div className="search-bar container my-4">
+      <div className="search-bar-container">
         <input
           type="text"
-          className="form-control"
           placeholder="Search for recipes..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-bar"
         />
       </div>
 
-      {/*Create Recipe*/}
+      {/* Create Recipe Button */}
       <div className="container my-5">
-      <Link to="/create-recipe" className="btn btn-primary">
-        Add a Recipe
-      </Link>
-    </div>
+        <Link to="/create-recipe" className="btn btn-primary">
+          Add a Recipe
+        </Link>
+      </div>
 
       {/* Featured Recipes */}
       <section className="featured-recipes container">
         <h2>Featured Recipes</h2>
         <div className="recipe-grid">
-          <div className="recipe-card">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Recipe"
-              className="recipe-image"
-            />
-            <h3>Recipe Title 1</h3>
-            <p>Quick description of the recipe.</p>
-            <Link to="/recipe-details/1" className="btn btn-outline-primary">
-              View Recipe
-            </Link>
-          </div>
-          <div className="recipe-card">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Recipe"
-              className="recipe-image"
-            />
-            <h3>Recipe Title 2</h3>
-            <p>Quick description of the recipe.</p>
-            <Link to="/recipe-details/2" className="btn btn-outline-primary">
-              View Recipe
-            </Link>
-          </div>
-
-          {/* Favorite Recipes Section */}
-            <div className="recipe-grid">
-                <h2>Favorite Recipes</h2>
-                <div className="recipe-list">
-                {favoriteRecipes.map((recipe) => (
-                    <div className="recipe-card" key={recipe._id}>
-                    <img
-                        src={
-                            recipe.image && recipe.image.startsWith("http")
-                              ? recipe.image
-                              : "https://via.placeholder.com/150"
-                          }
-                        alt={recipe.title}
-                    />
-                    <h3>{recipe.title}</h3>
-                    <p>{recipe.instructions.substring(0, 100)}...</p>
-                    <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
-                        View Recipe
-                    </Link>
-                    </div>
-                ))}
-                </div>
+          {filteredRecipes.map((recipe) => (
+            <div className="recipe-card" key={recipe._id}>
+              <img
+                src={
+                  recipe.image && recipe.image.startsWith("http")
+                    ? recipe.image
+                    : "https://via.placeholder.com/150"
+                }
+                alt={recipe.title}
+                className="recipe-image"
+              />
+              <h3>{recipe.title}</h3>
+              <p>{recipe.instructions.substring(0, 100)}...</p>
+              <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
+                View Recipe
+              </Link>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Favorite Recipes */}
+      <section className="favorite-recipes container">
+        <h2>Favorite Recipes</h2>
+        <div className="recipe-grid">
+          {favoriteRecipes.map((recipe) => (
+            <div className="recipe-card" key={recipe._id}>
+              <img
+                src={
+                  recipe.image && recipe.image.startsWith("http")
+                    ? recipe.image
+                    : "https://via.placeholder.com/150"
+                }
+                alt={recipe.title}
+                className="recipe-image"
+              />
+              <h3>{recipe.title}</h3>
+              <p>{recipe.instructions.substring(0, 100)}...</p>
+              <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
+                View Recipe
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
 
