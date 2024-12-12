@@ -1,49 +1,60 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function Recipes() {
-    const [recipes, setRecipes] = useState([]);
-    const [error, setError] = useState(null);
+const Recipes = () => {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    // Fetch all recipes from the API when the component mounts
-    useEffect(() => {
-        const fetchRecipes = async () => {
-            try {
-                const response = await axios.get("http://localhost:4000/api/recipes");
-                setRecipes(response.data);
-            } catch (err) {
-                setError("Failed to fetch recipes");
-                console.error(err);
-            }
-        };
+  // Fetch recipes from the backend
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/recipes");
+        setRecipes(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+        setError("Failed to fetch recipes. Please try again later.");
+        setLoading(false);
+      }
+    };
 
-        fetchRecipes();
-    }, []);
+    fetchRecipes();
+  }, []);
 
-    return (
-        <div>
-            <h1>Recipes</h1>
-            {error && <p>{error}</p>}
-            <div className="recipe-list">
-                {recipes.length === 0 ? (
-                    <p>No recipes found</p>
-                ) : (
-                    recipes.map((recipe) => (
-                        <div key={recipe._id} className="recipe-card">
-                            <h2>{recipe.title}</h2>
-                            <p><strong>Cuisine:</strong> {recipe.cuisine}</p>
-                            <p><strong>Prep Time:</strong> {recipe.prepTime} minutes</p>
-                            <p><strong>Ingredients:</strong></p>
-                            <ul>
-                                {recipe.ingredients.map((ingredient, index) => (
-                                    <li key={index}>{ingredient}</li>
-                                ))}
-                            </ul>
-                            <p><strong>Instructions:</strong> {recipe.instructions}</p>
-                        </div>
-                    ))
-                )}
+  // Handle loading and error states
+  if (loading) return <p>Loading recipes...</p>;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <div className="container my-5">
+      <h1>Recipes</h1>
+      <div className="row">
+        {recipes.map((recipe) => (
+          <div key={recipe._id} className="col-md-4 mb-4">
+            <div className="card">
+              <img
+                src={recipe.image || "https://via.placeholder.com/150"}
+                alt={recipe.title}
+                className="card-img-top"
+              />
+              <div className="card-body">
+                <h5 className="card-title">{recipe.title}</h5>
+                <p className="card-text">
+                  {recipe.instructions.substring(0, 100)}...
+                </p>
+                <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
+                  View Recipe
+                </Link>
+              </div>
             </div>
-        </div>
-    );
-}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Recipes;

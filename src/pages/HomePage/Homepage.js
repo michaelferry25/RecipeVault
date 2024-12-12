@@ -7,7 +7,7 @@ const HomePage = () => {
     <div className="homepage">
       {/* Hero Section */}
       <header className="hero-section">
-        <div className="hero-text">
+        <div className="hero-overlay">
           <h1>Welcome to Recipe Vault</h1>
           <p>Discover, save, and share your favorite recipes all in one place!</p>
           <Link to="/recipes" className="btn btn-primary">
