@@ -1,8 +1,38 @@
-import React from "react";
-import "./HomePage.css"; // Add styles for this page
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import "./HomePage.css";
 
 const HomePage = () => {
+
+    const [featuredRecipes, setFeaturedRecipes] = useState([]);
+    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+
+    useEffect(() => {
+        // Fetch Featured Recipes
+        const fetchFeaturedRecipes = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/api/recipes");
+            setFeaturedRecipes(response.data.slice(0, 4)); //top 4 featured recipes
+        } catch (error) {
+            console.error("Error fetching featured recipes:", error);
+        }
+        };
+
+        // Fetch Favorite Recipes
+        const fetchFavoriteRecipes = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/api/favorites"); // Endpoint for favorite recipes
+            setFavoriteRecipes(response.data);
+        } catch (error) {
+            console.error("Error fetching favorite recipes:", error);
+        }
+        };
+
+        fetchFeaturedRecipes();
+        fetchFavoriteRecipes();
+    }, []);
+
   return (
     <div className="homepage">
       {/* Hero Section */}
@@ -60,6 +90,30 @@ const HomePage = () => {
               View Recipe
             </Link>
           </div>
+
+          {/* Favorite Recipes Section */}
+            <div className="recipe-grid">
+                <h2>Favorite Recipes</h2>
+                <div className="recipe-list">
+                {favoriteRecipes.map((recipe) => (
+                    <div className="recipe-card" key={recipe._id}>
+                    <img
+                        src={
+                            recipe.image && recipe.image.startsWith("http")
+                              ? recipe.image
+                              : "https://via.placeholder.com/150"
+                          }
+                        alt={recipe.title}
+                    />
+                    <h3>{recipe.title}</h3>
+                    <p>{recipe.instructions.substring(0, 100)}...</p>
+                    <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
+                        View Recipe
+                    </Link>
+                    </div>
+                ))}
+                </div>
+            </div>
         </div>
       </section>
 
