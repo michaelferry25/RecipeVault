@@ -117,35 +117,37 @@ const HomePage = () => {
         </section>
 
 
-        <section className="favorite-recipes container">
-          <h2 className="text-center mb-4">Favorite Recipes</h2>
-          <div className="row">
-            {favoriteRecipes.map((recipe) => (
-                <div className="col-md-4 mb-4" key={recipe._id}>
-                  <div className="card h-100">
-                    <img
-                        src={
-                          recipe.image && recipe.image.startsWith("http")
-                              ? recipe.image
-                              : "https://via.placeholder.com/150"
-                        }
-                        alt={recipe.title}
-                        className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h3 className="card-title">{recipe.title}</h3>
-                      <p className="card-text">
-                        {recipe.instructions.substring(0, 100)}...
-                      </p>
-                      <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
-                        View Recipe
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-            ))}
+        <section className="favorites-recipes container">
+  <h2 className="text-center mb-4">Favorite Recipes</h2>
+  <div className="row">
+    {/* Display the first 3 favorite recipes */}
+    {favoriteRecipes.slice(0, 3).map((recipe) => (
+      <div className="col-md-4 mb-4" key={recipe._id}>
+        <div className="card h-100">
+          <img
+            src={
+              recipe.image && recipe.image.startsWith("http")
+                ? recipe.image
+                : "https://via.placeholder.com/150"
+            }
+            alt={recipe.title}
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h3 className="card-title">{recipe.title}</h3>
+            <p className="card-text">
+              {recipe.instructions.substring(0, 100)}...
+            </p>
+            <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
+              View Recipe
+            </Link>
           </div>
-        </section>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
 
 
       </div>

@@ -123,7 +123,7 @@ app.put('/api/recipes/favorite/:id', async (req, res) => {
 // Fetch all favorite recipes
 app.get('/api/favorites', async (req, res) => {
     try {
-        const favoriteRecipes = await Recipe.find({ favorites: true });
+        const favoriteRecipes = await Recipe.find({ favorites: true }).sort({ createdAt: 1 });
         res.json(favoriteRecipes);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch favorite recipes' });
@@ -155,6 +155,17 @@ app.get('/api/recipes/search/:query', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch recipes." });
     }
 });
+
+// Fetch 3 random recipes
+app.get('/api/featured-recipes', async (req, res) => {
+    try {
+        const recipes = await Recipe.aggregate([{ $sample: { size: 3 } }]); // Get 3 random recipes
+        res.json(recipes);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch featured recipes' });
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/api/recipes`);
