@@ -1,3 +1,114 @@
+# **Recipe Vault**
+
+**Recipe Vault** is a web application that helps users discover, manage, and share recipes. Built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js)
+
+---
+
+## **Features**
+
+- **Browse Recipes**: View featured and favourite recipes.
+- **Search Recipes**: Search for recipes by name.
+- **Favourite Recipes**: Add and manage your favourite recipes.
+- **Create Recipes**: Add new recipes using a form.
+- **Edit & Delete Recipes**: Update or remove recipes.
+- **Settings**:
+  - Toggle **Dark Mode**.
+  - Clear all favourites.
+- **Responsive Design**: Works on desktop, tablet, and mobile devices, but best on desktop browsers.
+
+---
+
+## **Tech Stack**
+
+- **React.js**: Frontend framework for building user interfaces.
+- **Node.js**: Runtime environment for backend logic.
+- **Express.js**: Web framework for server-side operations.
+- **MongoDB**: Cloud database for storing recipe data.
+- **Mongoose**: ORM for MongoDB.
+
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+1. Install **Node.js** and **npm**.
+2. Clone the Repository:
+`git clone <https://github.com/michaelferry25/RecipeVault/>`
+3. Install Dependencies:
+`cd client`
+`npm install`
+`cd ../server`
+`npm install`
+4. Navigate to the Backend Server and Start:
+`cd backend`
+`npm start`
+5. Navigate back to the Frontend Server and Start the Server:
+`cd .. `
+`npm start`
+6. Open your browser and go to:
+[http://localhost:3000](http://localhost:3000)
+7. Open your browser and go to 
+[http://localhost:4000/api/recipes](http://localhost:4000/api/recipes) to see the backend server with all the recipes info
+***
+
+# App Navigation
+
+### Homepage
+* Displays featured recipes and favourite recipes.
+* Includes quick links to explore more recipes or add your own.
+
+### Recipes Page
+* Browse all recipes available in the app.
+* Use the **Edit** button to update a recipe or **Delete** to remove it.
+
+### Search Page
+* Use the search bar to find recipes by name.
+* Results update as you type.
+
+### Recipe Details Page
+* View information about a specific recipe, including:
+* Ingredients
+* Instructions
+* Prep time
+* Cuisine type
+* Add or remove the recipe from favourites.
+
+### Favourites Page
+* Displays all recipes marked as favourites.
+* Click View Recipe to see details.
+
+### Create Recipe Page
+* Fill out a form to add a new recipe, which includes:
+* Title
+* Ingredients
+* Instructions
+* Prep time
+* Cuisine type
+
+### Settings Page
+* Customize your experience:
+* Enable or disable Dark Mode.
+* Clear all favourite recipes if needed.
+* View demo contact details and acknowledgments.
+
+
+***
+
+
+## Advanced Features
+### Dark Mode
+* Toggle Dark Mode on the Settings page for better accessibility and user experience in low-light conditions or preference.
+### Clear Favourites
+* Use the "Clear Favourites" button in the Settings page to reset your favourites list with confirmation if needed.
+### Responsive Design
+* The app is fully responsive and works well on all on all devices but best on desktop devices.
+
+***
+
+## Acknowledgments
+* Recipes are sourced from Food.com. This app is a project for educational purposes and is the intellectual property of Michael Ferry.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

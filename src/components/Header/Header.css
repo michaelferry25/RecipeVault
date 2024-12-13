@@ -14,7 +14,7 @@
 }
 
 .navbar-brand span {
-    font-size: 1.2rem; /*font size for the brand text */
+    font-size: 1.2rem; /*font size for the brand text so 20% bigger than that relative text*/
     font-weight: bold;
     color: #ffffff;
     margin-left: 10px;
