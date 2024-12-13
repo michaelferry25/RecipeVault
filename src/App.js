@@ -6,6 +6,8 @@ import RecipeDetails from './pages/Recipe Details/RecipeDetails';
 import FavouriteRecipe from './pages/Favourite Recipes/FavouriteRecipes';
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import SearchPage from "./pages/search/SearchPage";
+import PrivacyPolicy from "./pages/Policies/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/recipe/:id" element={<RecipeDetails />} />
         <Route path="/search/:query" element={<SearchPage />} />
         <Route path="/create-recipe" element={<CreateRecipe />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} /> 
       </Routes>
       <Footer /> {/* Footer will be rendered on all pages */}
     </>
