@@ -9,51 +9,49 @@ export default function RecipeDetails() {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        //Gets recipe details wjen it loads the component
+        // Fetch recipe details when component loads
         const fetchRecipeDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/recipes/${id}`);
-                setRecipe(response.data);//stores the recipe
-                setError(null); //clear any mistakes if its gets it successfully
+                setRecipe(response.data); // Store the recipe data
+                setError(null); // Clear errors on success
             } catch (err) {
-                setError("Failed to fetch recipe details");//Handles fetch errors
+                setError("Failed to fetch recipe details."); // Handle fetch errors
             }
         };
 
-        fetchRecipeDetails();//Calling the function to fetch
-    }, [id]);//Dependancy array runs when id chances
+        fetchRecipeDetails(); // Call fetch function
+    }, [id]); // Dependency array runs when id changes
 
     const addToFavorites = async () => {
-        //Function to change favourite or not
+        // Function to toggle favorite status
         try {
             const response = await axios.put(`http://localhost:4000/api/recipes/favorite/${id}`);
             if (response.status === 200) {
-                //successful msg
-                setMessage("Recipe favorite status updated!");
+                setMessage("Recipe favorite status updated!"); // Success message
             } else {
-                //failure msg
-                setMessage("Failed to update favorite status.");
+                setMessage("Failed to update favorite status."); // Failure message
             }
         } catch (err) {
-            //Handles the api failure if happens
-            setMessage("Failed to update favorite status.");
+            setMessage("Failed to update favorite status."); // API failure handling
         }
     };
 
     if (error) {
-        return <div className="text-danger">{error}</div>;//Displays error msg
+        return <div className="text-danger">{error}</div>; // Display error message
     }
 
     if (!recipe) {
-        return <div>Loading...</div>;//Loading msg
+        return <div>Loading...</div>; // Loading message
     }
 
     return (
-        <div>
-
+        <div className="recipe-details container">
             <h1>{recipe.title}</h1>
             <h3>Cuisine: {recipe.cuisine}</h3>
-            <p><strong>Prep Time:</strong> {recipe.prepTime} minutes</p>
+            <p>
+                <strong>Prep Time:</strong> {recipe.prepTime} minutes
+            </p>
             <h4>Ingredients:</h4>
             <ul>
                 {recipe.ingredients.map((ingredient, index) => (
@@ -62,7 +60,6 @@ export default function RecipeDetails() {
             </ul>
             <h4>Instructions:</h4>
             <p>{recipe.instructions}</p>
-            
             <button onClick={addToFavorites} className="btn btn-success">
                 Toggle Favorite
             </button>
