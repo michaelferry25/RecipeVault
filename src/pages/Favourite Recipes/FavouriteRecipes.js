@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 export default function FavouriteRecipe() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -35,22 +36,49 @@ export default function FavouriteRecipe() {
     return <div>{error}</div>;
   }
 
+
   return (
-    <div>
-      <h1>Favorite Recipes</h1>
-      {favoriteRecipes.length > 0 ? (
-        <ul>
-          {favoriteRecipes.map((recipe) => (
-            <li key={recipe._id}>
-              <h3>{recipe.title}</h3>
-              <p>{recipe.ingredients.join(', ')}</p>
-              <button onClick={() => handleUnfavorite(recipe._id)}>Unfavorite</button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No favorite recipes found.</p>
-      )}
-    </div>
+      <div className="container">
+        <h1 className="text-center mb-4">Favorite Recipes</h1>
+        {favoriteRecipes.length > 0 ? (
+            <div className="row">
+              {favoriteRecipes.map((recipe) => (
+                  <div className="col-md-4 mb-4" key={recipe._id}>
+                    <div className="card h-100">
+                      <img
+                          src={
+                            recipe.image && recipe.image.startsWith("http")
+                                ? recipe.image
+                                : "https://via.placeholder.com/150"
+                          }
+                          alt={recipe.title}
+                          className="card-img-top"
+                      />
+                      <div className="card-body">
+                        <h3 className="card-title">{recipe.title}</h3>
+                        <p className="card-text">{recipe.ingredients.join(", ")}</p>
+                        <button
+                            onClick={() => handleUnfavorite(recipe._id)}
+                            className="btn btn-danger"
+                        >
+                          Unfavorite
+                        </button>
+                        <Link to={`/recipe/${recipe._id}`}>
+                          <button
+                              className="text-white btn btn-info"
+                          >
+                            View Recipe
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+              ))}
+            </div>
+        ) : (
+            <p className="text-center">No favorite recipes found.</p>
+        )}
+      </div>
   );
+
 }

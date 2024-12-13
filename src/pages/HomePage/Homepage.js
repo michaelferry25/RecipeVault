@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import "./HomePage.css";
 
@@ -8,6 +8,9 @@ const HomePage = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // Search input state
   const [filteredRecipes, setFilteredRecipes] = useState([]); // Filtered recipes for search
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     // Fetch Featured Recipes
@@ -34,119 +37,107 @@ const HomePage = () => {
     fetchFeaturedRecipes();
     fetchFavoriteRecipes();
   }, []);
-
-  // Handle search input change
-  const handleSearch = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    setSearchTerm(searchValue);
-
-    // Filter recipes based on the search term
-    const filtered = featuredRecipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(searchValue)
-    );
-    setFilteredRecipes(filtered);
+  const handleSearch = () => {
+    const searchValue = searchTerm.toLowerCase();
+    if (searchValue.trim()) {
+      navigate(`/search/${searchValue}`); // Navigates to search results page
+    }
   };
 
   return (
-    <div className="homepage">
-      {/* Hero Section */}
-      <header className="hero-section">
-        <div className="hero-overlay">
-          <h1>Welcome to Recipe Vault</h1>
-          <p>Discover, save, and share your favorite recipes all in one place!</p>
-          <Link to="/recipes" className="btn btn-primary">
-            Explore Recipes
+      <div className="homepage">
+
+        <header className="hero-section">
+          <div className="hero-overlay">
+            <h1>Welcome to Recipe Vault</h1>
+            <p>Discover, save, and share your favorite recipes all in one place!</p>
+            <Link to="/recipes">
+              <button className="btn btn-primary">Explore Recipes</button>
+            </Link>
+          </div>
+        </header>
+
+        <div className="search-bar-container d-flex justify-content-center align-items-center mx-auto w-50 mt-5">
+          <input
+              type="text"
+              className="form-control"
+              placeholder="Search for a recipe..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Capture input changes
+          />
+          <button className="btn btn-primary" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+
+        <div className="container my-5">
+          <Link to="/create-recipe" className="btn btn-primary">
+            Add a Recipe
           </Link>
         </div>
-      </header>
 
-      {/* Search Bar */}
-      <div className="search-bar-container">
-        <input
-          type="text"
-          placeholder="Search for recipes..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
+        <section className="featured-recipes container">
+          <h2 className="text-center mb-4">Featured Recipes</h2>
+          <div className="row">
+            {filteredRecipes.map((recipe) => (
+                <div className="col-md-4 mb-4" key={recipe._id}>
+                  <div className="card h-100">
+                    <img
+                        src={
+                          recipe.image && recipe.image.startsWith("http")
+                              ? recipe.image
+                              : "https://via.placeholder.com/150"
+                        }
+                        alt={recipe.title}
+                        className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h3 className="card-title">{recipe.title}</h3>
+                      <p className="card-text">
+                        {recipe.instructions.substring(0, 100)}...
+                      </p>
+                      <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
+                        View Recipe
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="favorite-recipes container">
+          <h2 className="text-center mb-4">Favorite Recipes</h2>
+          <div className="row">
+            {favoriteRecipes.map((recipe) => (
+                <div className="col-md-4 mb-4" key={recipe._id}>
+                  <div className="card h-100">
+                    <img
+                        src={
+                          recipe.image && recipe.image.startsWith("http")
+                              ? recipe.image
+                              : "https://via.placeholder.com/150"
+                        }
+                        alt={recipe.title}
+                        className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h3 className="card-title">{recipe.title}</h3>
+                      <p className="card-text">
+                        {recipe.instructions.substring(0, 100)}...
+                      </p>
+                      <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
+                        View Recipe
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+            ))}
+          </div>
+        </section>
+
+
       </div>
-
-      {/* Create Recipe Button */}
-      <div className="container my-5">
-        <Link to="/create-recipe" className="btn btn-primary">
-          Add a Recipe
-        </Link>
-      </div>
-
-      {/* Featured Recipes */}
-      <section className="featured-recipes container">
-        <h2>Featured Recipes</h2>
-        <div className="recipe-grid">
-          {filteredRecipes.map((recipe) => (
-            <div className="recipe-card" key={recipe._id}>
-              <img
-                src={
-                  recipe.image && recipe.image.startsWith("http")
-                    ? recipe.image
-                    : "https://via.placeholder.com/150"
-                }
-                alt={recipe.title}
-                className="recipe-image"
-              />
-              <h3>{recipe.title}</h3>
-              <p>{recipe.instructions.substring(0, 100)}...</p>
-              <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
-                View Recipe
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Favorite Recipes */}
-      <section className="favorite-recipes container">
-        <h2>Favorite Recipes</h2>
-        <div className="recipe-grid">
-          {favoriteRecipes.map((recipe) => (
-            <div className="recipe-card" key={recipe._id}>
-              <img
-                src={
-                  recipe.image && recipe.image.startsWith("http")
-                    ? recipe.image
-                    : "https://via.placeholder.com/150"
-                }
-                alt={recipe.title}
-                className="recipe-image"
-              />
-              <h3>{recipe.title}</h3>
-              <p>{recipe.instructions.substring(0, 100)}...</p>
-              <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
-                View Recipe
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="categories container my-5">
-        <h2>Recipe Categories</h2>
-        <div className="category-list">
-          <Link to="/categories/breakfast" className="btn btn-secondary">
-            Breakfast
-          </Link>
-          <Link to="/categories/lunch" className="btn btn-secondary">
-            Lunch
-          </Link>
-          <Link to="/categories/dinner" className="btn btn-secondary">
-            Dinner
-          </Link>
-          <Link to="/categories/desserts" className="btn btn-secondary">
-            Desserts
-          </Link>
-        </div>
-      </section>
-    </div>
   );
 };
 

@@ -97,21 +97,25 @@ app.delete('/api/recipes/:id', async (req, res) => {
 });
 
 // Add to favorites endpoint
-app.post('/api/recipes/:id/favorite', async (req, res) => {
+app.put('/api/recipes/favorite/:id', async (req, res) => {
     try {
         const { id } = req.params;
+
+        // Use _id if that's the primary key field in your database
         const recipe = await Recipe.findById(id);
+
         if (!recipe) {
             return res.status(404).json({ error: 'Recipe not found' });
         }
 
-        // Toggle the favorite status
-        recipe.favorites = !recipe.favorites;
+        // Ensure 'favorites' is initialized
+        recipe.favorites = !recipe.favorites || false;
         await recipe.save();
 
-        res.json({ message: recipe.favorites ? 'Recipe added to favorites' : 'Recipe removed from favorites' });
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to toggle favorite status' });
+        res.json({ message: 'Recipe favorite status updated', favorites: recipe.favorites });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to update recipe' });
     }
 });
 
@@ -123,6 +127,32 @@ app.get('/api/favorites', async (req, res) => {
         res.json(favoriteRecipes);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch favorite recipes' });
+    }
+});
+
+// Searchs database
+app.get('/api/recipes/search/:query', async (req, res) => {
+    try {
+        const { query } = req.params;
+
+        const recWord = query.split(' ');
+
+        const searchRegex = recWord.map(rec => new RegExp(rec, 'i'));
+
+        const recipes = await Recipe.find({
+            title: searchRegex,
+        });
+
+        //if recipe search results dont match any recipes
+        if (recipes.length === 0) {
+            return res.status(404).json({ message: "No recipes found." });
+        }
+
+
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch recipes." });
     }
 });
 
