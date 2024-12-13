@@ -13,30 +13,39 @@ const HomePage = () => {
 
 
   useEffect(() => {
-    // Fetch Featured Recipes
+    //Fetch Featured Recipes
     const fetchFeaturedRecipes = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/api/recipes");
-        setFeaturedRecipes(response.data.slice(0, 4)); // Top 4 featured recipes
-        setFilteredRecipes(response.data); // Initially show all recipes
-      } catch (error) {
-        console.error("Error fetching featured recipes:", error);
-      }
+        try {
+            const response = await axios.get("http://localhost:4000/api/recipes");
+            const allRecipes = response.data;
+
+            //randomize the order
+            const shuffledRecipes = [...allRecipes].sort(() => 0.5 - Math.random());
+
+            //takes the first 3 recipes after shuffling
+            const randomRecipes = shuffledRecipes.slice(0, 3);
+
+            setFeaturedRecipes(randomRecipes); // Sets the 3 random recipes as featured
+        } catch (error) {
+            console.error("Error fetching featured recipes:", error);
+        }
     };
 
     // Fetch Favorite Recipes
     const fetchFavoriteRecipes = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/api/favorites"); // Endpoint for favorite recipes
-        setFavoriteRecipes(response.data);
-      } catch (error) {
-        console.error("Error fetching favorite recipes:", error);
-      }
+        try {
+            const response = await axios.get("http://localhost:4000/api/favorites"); // Endpoint for favorite recipes
+            setFavoriteRecipes(response.data);
+        } catch (error) {
+            console.error("Error fetching favorite recipes:", error);
+        }
     };
 
     fetchFeaturedRecipes();
     fetchFavoriteRecipes();
-  }, []);
+}, []);
+
+
   const handleSearch = () => {
     const searchValue = searchTerm.toLowerCase();
     if (searchValue.trim()) {
@@ -76,35 +85,37 @@ const HomePage = () => {
           </Link>
         </div>
 
+        {/*Loops through recipes array and creates a card for each recipe */}
         <section className="featured-recipes container">
           <h2 className="text-center mb-4">Featured Recipes</h2>
           <div className="row">
-            {filteredRecipes.map((recipe) => (
-                <div className="col-md-4 mb-4" key={recipe._id}>
-                  <div className="card h-100">
-                    <img
-                        src={
-                          recipe.image && recipe.image.startsWith("http")
-                              ? recipe.image
-                              : "https://via.placeholder.com/150"
-                        }
-                        alt={recipe.title}
-                        className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h3 className="card-title">{recipe.title}</h3>
-                      <p className="card-text">
-                        {recipe.instructions.substring(0, 100)}...
-                      </p>
-                      <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
-                        View Recipe
-                      </Link>
-                    </div>
+            {featuredRecipes.map((recipe) => (
+              <div className="col-md-4 mb-4" key={recipe._id}>
+                <div className="card h-100">
+                  <img
+                    src={
+                      recipe.image && recipe.image.startsWith("http")
+                        ? recipe.image
+                        : "https://via.placeholder.com/150"
+                    }
+                    alt={recipe.title}
+                    className="card-img-top"
+                  />
+                  <div className="card-body">
+                    <h3 className="card-title">{recipe.title}</h3>
+                    <p className="card-text">
+                      {recipe.instructions.substring(0, 100)}...
+                    </p>
+                    <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
+                      View Recipe
+                    </Link>
                   </div>
                 </div>
+              </div>
             ))}
           </div>
         </section>
+
 
         <section className="favorite-recipes container">
           <h2 className="text-center mb-4">Favorite Recipes</h2>
