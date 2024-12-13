@@ -1,14 +1,18 @@
-import {Link, Route} from "react-router-dom";
-import FavouriteRecipe from "../../pages/Favourite Recipes/FavouriteRecipes";
-import Recipes from "../../pages/Recipes/Recipes";
-import RecipeDetails from "../../pages/Recipe Details/RecipeDetails";
-import CreateRecipe from "../../pages/CreateRecipe/CreateRecipe";
+import { Link } from "react-router-dom";
+import "./Header.css";
 
 const Header = () => {
-
     return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container">
+                <Link className="navbar-brand d-flex align-items-center" to="/">
+                    <img
+                        src="/images/recipeVaultLogo.jpg"
+                        alt="Recipe Vault Logo"
+                        className="header-logo"
+                    />
+                    <span className="ml-2">Recipe Vault</span>
+                </Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -28,9 +32,9 @@ const Header = () => {
                         <Link className="nav-item nav-link text-white" to="/create-recipe">Create Recipe</Link>
                     </div>
                 </div>
-            </nav>
-        </>
+            </div>
+        </nav>
     );
-}
+};
 
 export default Header;
