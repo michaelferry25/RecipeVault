@@ -4,6 +4,7 @@ import "./settings.css";
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(false);
 
+   {/*Makes dark mode active and ability to turn off*/}
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => {
       const newMode = !prevMode;
@@ -16,6 +17,7 @@ const Settings = () => {
     });
   };
 
+   {/*Option if needed to delete all favourites if needed with message if applied*/}
   const clearFavorites = () => {
     if (window.confirm("Are you sure you want to clear all favorites?")) {
       fetch("http://localhost:4000/api/clear-favorites", { method: "POST" })
@@ -24,6 +26,7 @@ const Settings = () => {
     }
   };
 
+ {/*Settings container for all options incl information and acknowledgments like where its sourced from and clearing the favourites*/}
   return (
     <div className="settings-container">
       <h1>Settings</h1>

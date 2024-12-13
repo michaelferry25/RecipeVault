@@ -1,5 +1,5 @@
 import React from "react";
-
+ /*terms of service page with text and demo contact info in bold */
 const TermsOfService = () => {
   return (
     <div className="container my-5">

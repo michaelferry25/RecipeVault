@@ -21,16 +21,7 @@
   .social-icons {
     margin-top: 10px;
   }
-  
-  .social-icon {
-    color: #6c757d;
-    font-size: 1.5rem;
-    margin: 0 10px;
-  }
-  
-  .social-icon:hover {
-    color: #007bff;
-  }
+
 
   .footer p {
     margin: 5px 0;

@@ -50,11 +50,13 @@ const Recipes = () => {
   return (
     <div className="container my-5">
       <h1>Recipes</h1>
+       {/*Alert for user*/}
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
       <div className="row">
         {recipes.map((recipe) => (
           <div key={recipe._id} className="col-md-4 mb-4">
             <div className="card recipe-card">
+               {/*image for the card or the placeholder img*/}
               <img
                 src={recipe.image || "https://via.placeholder.com/150"}
                 alt={recipe.title}
@@ -66,12 +68,15 @@ const Recipes = () => {
                   {recipe.instructions.substring(0, 100)}...
                 </p>
                 <div className="button-container">
+                   {/*To view recipe button*/}
                   <Link to={`/recipe/${recipe._id}`} className="btn btn-primary">
                     View Recipe
                   </Link>
+                   {/*Edit  button*/}
                   <Link to={`/edit-recipe/${recipe._id}`} className="btn btn-warning">
                     Edit Recipe
                   </Link>
+                   {/*Delete button handler*/}
                   <button
                     onClick={() => handleDelete(recipe._id)}
                     className="btn btn-danger"

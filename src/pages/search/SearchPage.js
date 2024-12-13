@@ -40,6 +40,7 @@ const SearchPage = () => {
         }
     };
 
+     {/*Search bar container with placeholder text inside*/}
     return (
         <div className="container my-5">
             <div className="search-bar-container d-flex justify-content-center align-items-center mx-auto w-50 mt-5">
@@ -55,6 +56,7 @@ const SearchPage = () => {
                 </button>
             </div>
 
+             {/*Search results*/}
             <h1 className="mb-4">Search Results for "{query}"</h1>
             {loading && <p>Loading...</p>}
             {error && <p className="text-danger">{error}</p>}
@@ -62,6 +64,7 @@ const SearchPage = () => {
                 {results.map((recipe) => (
                     <div className="col-md-4 mb-4" key={recipe._id}>
                         <div className="card h-100">
+                             {/*same as other pages uses img or placeholder or alt name*/}
                             <img
                                 src={recipe.image || "https://via.placeholder.com/150"}
                                 className="card-img-top"
@@ -72,6 +75,7 @@ const SearchPage = () => {
                                 <p className="card-text">
                                     {recipe.instructions.substring(0, 100)}...
                                 </p>
+                                 {/*to view recipe button after search*/}
                                 <a href={`/recipe/${recipe._id}`} className="btn btn-primary">
                                     View Recipe
                                 </a>

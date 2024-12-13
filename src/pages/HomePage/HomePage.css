@@ -1,6 +1,7 @@
+/*used a hero section to grab users attention*/
 .hero-section {
     position: relative;
-    background: url("/public/images/banner.svg") no-repeat center center;
+    background: url("/public/images/banner.svg") no-repeat center center; /*gets the svg img as the background*/
     background-size: cover;
     height: 400px;
     display: flex;

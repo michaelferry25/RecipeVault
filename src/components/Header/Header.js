@@ -5,6 +5,7 @@ const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
+                {/*centres the logo and text buttons*/}
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <img
                         src="/images/recipeVaultLogo.jpg"
@@ -25,6 +26,7 @@ const Header = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    {/*NavBar links for top of page*/}
                     <div className="navbar-nav">
                         <Link className="nav-item nav-link text-white" to="/">Home</Link>
                         <Link className="nav-item nav-link text-white" to="/favourites">Favourites</Link>

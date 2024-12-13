@@ -1,3 +1,4 @@
+ /*All imports for index.js with installed clients etc*/
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom'; 

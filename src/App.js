@@ -1,3 +1,4 @@
+/*All imports for app.js*/
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Homepage from './pages/HomePage/Homepage';
@@ -11,6 +12,7 @@ import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import Settings from "./pages/Settings/settings";
 import Footer from "./components/Footer/Footer";
 
+/*All routes for the website*/
 function App() {
   return (
     <>

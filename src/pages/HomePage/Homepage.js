@@ -45,7 +45,7 @@ const HomePage = () => {
     fetchFavoriteRecipes();
 }, []);
 
-
+  //Search handler for the recipes
   const handleSearch = () => {
     const searchValue = searchTerm.toLowerCase();
     if (searchValue.trim()) {
@@ -55,9 +55,10 @@ const HomePage = () => {
 
   return (
       <div className="homepage">
-
+        {/*Calls the hero section i made in the css file*/}
         <header className="hero-section">
           <div className="hero-overlay">
+            {/*Greeting text*/}
             <h1>Welcome to Recipe Vault</h1>
             <p>Discover, save, and share your favorite recipes all in one place!</p>
             <Link to="/recipes">
@@ -66,6 +67,7 @@ const HomePage = () => {
           </div>
         </header>
 
+         {/*Saerch bar container with placeholder*/}
         <div className="search-bar-container d-flex justify-content-center align-items-center mx-auto w-50 mt-5">
           <input
               type="text"
@@ -79,6 +81,7 @@ const HomePage = () => {
           </button>
         </div>
 
+         {/*Add recipe button with link to page*/}
         <div className="container my-5">
           <Link to="/create-recipe" className="btn btn-primary">
             Add a Recipe
@@ -138,6 +141,7 @@ const HomePage = () => {
             <p className="card-text">
               {recipe.instructions.substring(0, 100)}...
             </p>
+             {/*Link to view recipe*/}
             <Link to={`/recipe/${recipe._id}`} className="btn btn-outline-primary">
               View Recipe
             </Link>

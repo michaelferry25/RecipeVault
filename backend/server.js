@@ -166,7 +166,8 @@ app.get('/api/featured-recipes', async (req, res) => {
     }
 });
 
-
+// Port to run backend system
+// Port is at localhost:4000/api/recipes 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/api/recipes`);
 });

@@ -25,7 +25,7 @@ export default function FavouriteRecipe() {
     try {
       await axios.post(`http://localhost:4000/api/recipes/${id}/favorite`);
       
-      // Update the local state by removing the unfavorited recipe
+      {/*error handling for not being able to change the error message*/}
       setFavoriteRecipes(prevState => prevState.filter(recipe => recipe._id !== id));
     } catch (err) {
       setError("Failed to update favorite status");
@@ -39,12 +39,14 @@ export default function FavouriteRecipe() {
 
   return (
       <div className="container">
+        {/*Favourite recipes*/}
         <h1 className="text-center mb-4">Favorite Recipes</h1>
         {favoriteRecipes.length > 0 ? (
             <div className="row">
               {favoriteRecipes.map((recipe) => (
                   <div className="col-md-4 mb-4" key={recipe._id}>
                     <div className="card h-100">
+                      {/*image urls or a placeholder image for all*/}
                       <img
                           src={
                             recipe.image && recipe.image.startsWith("http")
@@ -54,9 +56,11 @@ export default function FavouriteRecipe() {
                           alt={recipe.title}
                           className="card-img-top"
                       />
+                      {/*card handling*/}
                       <div className="card-body">
                         <h3 className="card-title">{recipe.title}</h3>
                         <p className="card-text">{recipe.ingredients.join(", ")}</p>
+                        {/*unfavouriting button*/}
                         <button
                             onClick={() => handleUnfavorite(recipe._id)}
                             className="btn btn-danger"
@@ -64,6 +68,7 @@ export default function FavouriteRecipe() {
                           Unfavorite
                         </button>
                         <Link to={`/recipe/${recipe._id}`}>
+                        {/*button to view the recipe form favourites*/}
                           <button
                               className="text-white btn btn-info"
                           >

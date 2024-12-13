@@ -60,6 +60,7 @@ const CreateRecipe = () => {
     }
   };
 
+  //create a new recipe form
   return (
     <div className="container my-5">
       <h1>Create a New Recipe</h1>
@@ -76,6 +77,8 @@ const CreateRecipe = () => {
               required
           />
         </div>
+
+        {/*ingredients section*/}
         <div className="mb-3">
           <label className="form-label">Ingredients</label>
           {formData.ingredients.map((ingredient, index) => (
@@ -87,6 +90,7 @@ const CreateRecipe = () => {
                     onChange={(e) => updateIngredient(index, e.target.value)}
                     required
                 />
+                {/*Button to remove ingredients*/}
                 <button
                     type="button"
                     className="btn btn-danger"
@@ -98,6 +102,8 @@ const CreateRecipe = () => {
           ))}
 
         </div>
+
+        {/*Add ingredient button*/}
         <button type="button" className="btn btn-primary" onClick={addIngredient}>
           Add Ingredient
         </button>
@@ -113,6 +119,8 @@ const CreateRecipe = () => {
               required
           ></textarea>
         </div>
+
+        {/*Preparation time section/button*/}
         <div className="mb-3">
           <label htmlFor="prepTime" className="form-label">Preparation Time (minutes)</label>
           <input
@@ -125,6 +133,8 @@ const CreateRecipe = () => {
               required
           />
         </div>
+
+        {/*Cuisine label area*/}
         <div className="mb-3">
           <label htmlFor="cuisine" className="form-label">Cuisine Type</label>
           <input
@@ -136,6 +146,8 @@ const CreateRecipe = () => {
               onChange={handleChange}
           />
         </div>
+
+        {/*Difficulty drop down box part*/}
         <div className="mb-3">
           <label htmlFor="difficulty" className="form-label">Difficulty Level</label>
           <select
@@ -145,12 +157,14 @@ const CreateRecipe = () => {
               value={formData.difficulty}
               onChange={handleChange}
           >
+            {/*Options*/}
             <option value="">Select Difficulty</option>
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
           </select>
         </div>
+        {/*Servings part*/}
         <div className="mb-3">
           <label htmlFor="servings" className="form-label">Number of Servings</label>
           <input
@@ -163,6 +177,7 @@ const CreateRecipe = () => {
               required
           />
         </div>
+        {/*image url part of the form*/}
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Image URL</label>
           <input
@@ -182,6 +197,7 @@ const CreateRecipe = () => {
               />
           )}
         </div>
+        {/*Submit button*/}
         <button type="submit" className="btn btn-success">Create Recipe</button>
       </form>
     </div>

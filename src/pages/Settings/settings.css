@@ -1,3 +1,6 @@
+/*Settings css*/
+
+/*settings container*/
 .settings-container {
     max-width: 600px;
     margin: 0 auto;
@@ -19,21 +22,24 @@
     margin-bottom: 10px;
   }
   
+  /*Input option for scale on options*/
   .setting-option input[type="checkbox"] {
     transform: scale(1.5);
   }
-  
+  /*Dark mode */
   .dark-mode {
-    background: #121212;
+    background: #121212;/*Changes background colour for whole website*/
     color: #ffffff;
   }
   
+  /*settings container for dark mode*/
   .dark-mode .settings-container {
     background: #1e1e1e;
     color: #ffffff;
     box-shadow: none;
   }
   
+  /*button deletion*/
   button.btn-danger {
     background-color: #dc3545;
     color: white;
@@ -45,6 +51,7 @@
     transition: background-color 0.3s ease;
   }
   
+  /*hover animation for button*/
   button.btn-danger:hover {
     background-color: #a71d2a;
   }

@@ -1,5 +1,5 @@
 import React from "react";
-
+ /*Basic privacy policy with some disclaimers and demo contact info in bold*/
 const PrivacyPolicy = () => {
   return (
     <div className="container my-5">
