@@ -1,0 +1,51 @@
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .setting-option {
+    margin-bottom: 20px;
+  }
+  
+  .setting-option label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .setting-option input[type="checkbox"] {
+    transform: scale(1.5);
+  }
+  
+  .dark-mode {
+    background: #121212;
+    color: #ffffff;
+  }
+  
+  .dark-mode .settings-container {
+    background: #1e1e1e;
+    color: #ffffff;
+    box-shadow: none;
+  }
+  
+  button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.btn-danger:hover {
+    background-color: #a71d2a;
+  }
+  

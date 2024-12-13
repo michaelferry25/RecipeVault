@@ -30,6 +30,9 @@ const Header = () => {
                         <Link className="nav-item nav-link text-white" to="/favourites">Favourites</Link>
                         <Link className="nav-item nav-link text-white" to="/recipes">Recipes</Link>
                         <Link className="nav-item nav-link text-white" to="/create-recipe">Create Recipe</Link>
+                        <div className="navbar-nav ml-auto">
+                        <Link className="nav-item nav-link text-white" to="/settings">Settings</Link>
+                        </div>
                     </div>
                 </div>
             </div>
